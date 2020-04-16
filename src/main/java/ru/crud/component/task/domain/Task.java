@@ -12,5 +12,5 @@ public class Task {
   private Long id;
   private Long userId;
   private String description;
-  private Boolean isComplete;
+  private String status;
 }
