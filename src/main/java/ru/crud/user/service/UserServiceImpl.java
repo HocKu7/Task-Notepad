@@ -25,11 +25,11 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User update(User user) {
-    return null;
+    return userRepo.update(user);
   }
 
   @Override
-  public User deleteById(User user) {
-    return null;
+  public void deleteById(long id) {
+    userRepo.deleteById(id);
   }
 }

@@ -10,5 +10,5 @@ public interface UserRepo {
 
   User update(User user);
 
-  User deleteById(long id);
+  void deleteById(long id);
 }

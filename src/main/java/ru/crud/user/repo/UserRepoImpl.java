@@ -18,6 +18,8 @@ public class UserRepoImpl implements UserRepo {
   private NamedParameterJdbcTemplate jdbcTemplate;
   private static final String SELECT_USER_BY_ID = "SELECT * FROM USER WHERE id=:id";
   private static final String INSERT_USER = "INSERT INTO USER (id, name, password) VALUES (:id, :name, :password)";
+  private static final String DELETE_USER_BY_ID = "DELETE FROM USER WHERE id=:id";
+  private static final String UPDATE_USER = "UPDATE USER SET name=:name, password=:password WHERE id=:id";
 
   public UserRepoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
@@ -34,6 +36,7 @@ public class UserRepoImpl implements UserRepo {
 
   @Override
   public User save(User user) {
+
     KeyHolder holder = new GeneratedKeyHolder();
 
     SqlParameterSource parameters = new MapSqlParameterSource()
@@ -51,19 +54,31 @@ public class UserRepoImpl implements UserRepo {
 
   @Override
   public User update(User user) {
-    return null;
+
+    SqlParameterSource parameters = new MapSqlParameterSource()
+        .addValue("id", user.getId())
+        .addValue("name", user.getName())
+        .addValue("password", user.getPassword());
+
+    jdbcTemplate.update(UPDATE_USER, parameters);
+
+    return user;
   }
 
   @Override
-  public User deleteById(long id) {
-    return null;
-  }
+  public void deleteById(long id) {
 
+    SqlParameterSource parameters = new MapSqlParameterSource()
+        .addValue("id", id);
+
+    jdbcTemplate.update(DELETE_USER_BY_ID, parameters);
+  }
 
   private static final class UserMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
+
       User user = new User();
       user.setId(resultSet.getLong("id"));
       user.setName(resultSet.getString("name"));

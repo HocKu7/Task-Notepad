@@ -20,7 +20,7 @@ create table TASK
     constraint TASK_PK
         primary key (ID),
     constraint TASK_USER_ID_FK
-        foreign key (OWNER_ID) references USER (ID)
+        foreign key (OWNER_ID) references USER (ID) ON DELETE CASCADE
 );
 
 create unique index TASK_ID_UINDEX
