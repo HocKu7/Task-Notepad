@@ -1,8 +1,8 @@
-package ru.crud.user.service;
+package ru.crud.component.user.service;
 
 import org.springframework.stereotype.Service;
-import ru.crud.user.domain.User;
-import ru.crud.user.repo.UserRepo;
+import ru.crud.component.user.domain.User;
+import ru.crud.component.user.repo.UserRepo;
 
 @Service
 public class UserServiceImpl implements UserService {

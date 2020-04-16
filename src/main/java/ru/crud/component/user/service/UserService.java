@@ -1,6 +1,6 @@
-package ru.crud.user.service;
+package ru.crud.component.user.service;
 
-import ru.crud.user.domain.User;
+import ru.crud.component.user.domain.User;
 
 public interface UserService {
 

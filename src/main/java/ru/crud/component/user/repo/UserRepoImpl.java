@@ -1,4 +1,4 @@
-package ru.crud.user.repo;
+package ru.crud.component.user.repo;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.crud.user.domain.User;
+import ru.crud.component.user.domain.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +17,7 @@ public class UserRepoImpl implements UserRepo {
 
   private NamedParameterJdbcTemplate jdbcTemplate;
   private static final String SELECT_USER_BY_ID = "SELECT * FROM USER WHERE id=:id";
+  private static final String SELECT_USER_BY_NAME = "SELECT * FROM USER WHERE name=:name";
   private static final String INSERT_USER = "INSERT INTO USER (id, name, password) VALUES (:id, :name, :password)";
   private static final String DELETE_USER_BY_ID = "DELETE FROM USER WHERE id=:id";
   private static final String UPDATE_USER = "UPDATE USER SET name=:name, password=:password WHERE id=:id";
@@ -32,6 +33,15 @@ public class UserRepoImpl implements UserRepo {
         .addValue("id", id);
 
     return jdbcTemplate.queryForObject(SELECT_USER_BY_ID, parameters, new UserMapper());
+  }
+
+  @Override
+  public User getUserByName(String name) {
+
+    SqlParameterSource parameters = new MapSqlParameterSource()
+        .addValue("name", name);
+
+    return jdbcTemplate.queryForObject(SELECT_USER_BY_NAME, parameters, new UserMapper());
   }
 
   @Override

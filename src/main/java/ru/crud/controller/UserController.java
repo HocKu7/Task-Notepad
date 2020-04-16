@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.crud.user.domain.User;
-import ru.crud.user.service.UserService;
+import ru.crud.component.user.domain.User;
+import ru.crud.component.user.service.UserService;
 
 @RestController
 public class UserController {
@@ -17,16 +17,6 @@ public class UserController {
 
   UserController(UserService userService) {
     this.userService = userService;
-  }
-
-  @GetMapping("/user/{id}")
-  public User getUser(@PathVariable Long id) {
-    return userService.findById(id);
-  }
-
-  @PostMapping("/user")
-  public User saveUser(@RequestBody User user) {
-    return userService.save(user);
   }
 
   @DeleteMapping("/user/{id}")

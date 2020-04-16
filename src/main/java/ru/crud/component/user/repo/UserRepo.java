@@ -1,10 +1,12 @@
-package ru.crud.user.repo;
+package ru.crud.component.user.repo;
 
-import ru.crud.user.domain.User;
+import ru.crud.component.user.domain.User;
 
 public interface UserRepo {
 
   User getById(long id);
+
+  User getUserByName(String name);
 
   User save(User user);
 

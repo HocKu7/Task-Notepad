@@ -1,13 +1,13 @@
 INSERT INTO USER (id, name, password)
-VALUES (1, 'Vasya', 'pass');
+VALUES (1, 'user1', 'pass');
 INSERT INTO USER (id, name, password)
-VALUES (2, 'Ivan', 'somepass');
+VALUES (2, 'user2', 'pass');
 INSERT INTO USER (id, name, password)
-VALUES (3, 'Petya', 'PetyaPass');
+VALUES (3, 'user3', 'pass');
 INSERT INTO USER (id, name, password)
-VALUES (4, 'Alex', 'AlexPass');
+VALUES (4, 'user4', 'pass');
 INSERT INTO USER (id, name, password)
-VALUES (5, 'Boris', 'BorisPass');
+VALUES (5, 'user5', 'pass');
 
 INSERT INTO TASK(id, owner_id, description, status)
 VALUES (1, 1, 'some description_1', 'active');
