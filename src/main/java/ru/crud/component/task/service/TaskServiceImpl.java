@@ -15,12 +15,19 @@ import java.util.Random;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class TaskServiceImpl implements TaskService{
+public class TaskServiceImpl implements TaskService {
 
   private TaskRepo taskRepo;
+
   @Override
   public List<Task> getTasksByUserId(Long id) {
     return taskRepo.getTasksByUserId(id);
+  }
+
+  @Override
+  public Task getTaskById(Long id) {
+
+    return taskRepo.getTaskById(id);
   }
 
   @Override
@@ -28,11 +35,11 @@ public class TaskServiceImpl implements TaskService{
 
     TaskDtoToTaskConverter taskDtoToTaskConverter = new TaskDtoToTaskConverter();
     Task task = taskDtoToTaskConverter.convert(taskDto);
-    task.setId(new Random().nextLong()%200);
+    task.setId(new Random().nextLong() % 200);
 
-    Task returningTask=taskRepo.save(task);
+    Task returningTask = taskRepo.save(task);
 
-    log.info("Created task with id: "+ returningTask.getId());
+    log.info("Created task with id: " + returningTask.getId());
     TaskToTaskDtoConverter taskToTaskDtoConverter = new TaskToTaskDtoConverter();
 
     return taskToTaskDtoConverter.convert(returningTask);
@@ -41,6 +48,7 @@ public class TaskServiceImpl implements TaskService{
   @Override
   public void delete(Long id) {
 
+      taskRepo.delete(id);
   }
 
   @Override

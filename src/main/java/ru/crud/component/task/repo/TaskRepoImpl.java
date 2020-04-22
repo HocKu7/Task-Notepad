@@ -8,8 +8,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.crud.component.task.domain.Task;
-import ru.crud.component.user.domain.User;
-import ru.crud.component.user.repo.UserRepoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +19,8 @@ public class TaskRepoImpl implements TaskRepo {
   private NamedParameterJdbcTemplate jdbcTemplate;
   private static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM TASK WHERE owner_id=:user_id";
   private static final String INSERT_TASK = "INSERT INTO TASK(id, owner_id, description, status) VALUES (:id, :owner_id, :description, :status)";
+  private static final String DELETE_TASK_BY_ID = "DELETE FROM TASK WHERE id=:id";
+  private static final String TASK_BY_ID="SELECT * FROM TASK WHERE id=:id";
 
   public TaskRepoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
@@ -33,6 +33,15 @@ public class TaskRepoImpl implements TaskRepo {
         .addValue("user_id", id);
 
     return jdbcTemplate.query(SELECT_TASKS_BY_USER_ID, parameters, new TaskRepoImpl.TaskMapper());
+  }
+
+  @Override
+  public Task getTaskById(Long id) {
+
+    SqlParameterSource parameters = new MapSqlParameterSource()
+        .addValue("id", id);
+
+    return jdbcTemplate.queryForObject(TASK_BY_ID,parameters,new TaskRepoImpl.TaskMapper());
   }
 
   @Override
@@ -57,6 +66,10 @@ public class TaskRepoImpl implements TaskRepo {
   @Override
   public void delete(Long id) {
 
+    SqlParameterSource parameters = new MapSqlParameterSource()
+        .addValue("id", id);
+
+    jdbcTemplate.update(DELETE_TASK_BY_ID, parameters);
   }
 
   @Override

@@ -1,4 +1,4 @@
-create table USER
+create table if not exists USER
 (
     ID       INT auto_increment,
     NAME     VARCHAR(256),
@@ -7,11 +7,11 @@ create table USER
         primary key (ID)
 );
 
-create unique index USER_ID_UINDEX
+create unique index if not exists USER_ID_UINDEX
     on USER (ID);
 
 
-create table TASK
+create table if not exists TASK
 (
     ID          INT auto_increment,
     OWNER_ID    INT,
@@ -23,5 +23,5 @@ create table TASK
         foreign key (OWNER_ID) references USER (ID) ON DELETE CASCADE
 );
 
-create unique index TASK_ID_UINDEX
+create unique index if not exists TASK_ID_UINDEX
     on TASK (ID);

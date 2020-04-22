@@ -9,6 +9,8 @@ public interface TaskRepo {
 
   List<Task> getTasksByUserId(Long id);
 
+  Task getTaskById(Long id);
+
   Task save(Task task);
 
   void delete(Long id);
