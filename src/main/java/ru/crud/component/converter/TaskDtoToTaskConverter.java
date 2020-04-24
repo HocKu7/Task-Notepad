@@ -1,7 +1,7 @@
 package ru.crud.component.converter;
 
 import org.modelmapper.ModelMapper;
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 
 public class TaskDtoToTaskConverter implements Converter<TaskDto, Task> {

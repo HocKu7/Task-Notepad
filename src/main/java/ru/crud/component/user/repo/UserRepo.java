@@ -1,6 +1,6 @@
 package ru.crud.component.user.repo;
 
-import ru.crud.component.user.domain.User;
+import ru.crud.domain.User;
 
 public interface UserRepo {
 

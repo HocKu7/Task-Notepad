@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.crud.component.converter.TaskDtoToTaskConverter;
 import ru.crud.component.converter.TaskToTaskDtoConverter;
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 import ru.crud.component.task.repo.TaskRepo;
 

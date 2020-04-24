@@ -1,7 +1,6 @@
 package ru.crud.component.task.repo;
 
-import ru.crud.component.task.domain.Task;
-import ru.crud.component.task.dto.TaskDto;
+import ru.crud.domain.Task;
 
 import java.util.List;
 
