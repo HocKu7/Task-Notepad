@@ -1,7 +1,7 @@
 package ru.crud.component.user.service;
 
 import org.springframework.stereotype.Service;
-import ru.crud.component.user.domain.User;
+import ru.crud.domain.User;
 import ru.crud.component.user.repo.UserRepo;
 
 @Service
@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User save(User user) {
+
     return userRepo.save(user);
   }
 

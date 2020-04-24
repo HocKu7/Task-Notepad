@@ -1,6 +1,6 @@
 package ru.crud.component.task.service;
 
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 
 import java.util.List;

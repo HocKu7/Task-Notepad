@@ -7,14 +7,13 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Repository
-public class TaskRepoImpl implements TaskRepo {
+public class TaskRepoJDBC implements TaskRepo {
 
   private NamedParameterJdbcTemplate jdbcTemplate;
   private static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM TASK WHERE owner_id=:user_id";
@@ -22,7 +21,7 @@ public class TaskRepoImpl implements TaskRepo {
   private static final String DELETE_TASK_BY_ID = "DELETE FROM TASK WHERE id=:id";
   private static final String TASK_BY_ID="SELECT * FROM TASK WHERE id=:id";
 
-  public TaskRepoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+  public TaskRepoJDBC(NamedParameterJdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 
@@ -32,7 +31,7 @@ public class TaskRepoImpl implements TaskRepo {
     SqlParameterSource parameters = new MapSqlParameterSource()
         .addValue("user_id", id);
 
-    return jdbcTemplate.query(SELECT_TASKS_BY_USER_ID, parameters, new TaskRepoImpl.TaskMapper());
+    return jdbcTemplate.query(SELECT_TASKS_BY_USER_ID, parameters, new TaskRepoJDBC.TaskMapper());
   }
 
   @Override
@@ -41,7 +40,7 @@ public class TaskRepoImpl implements TaskRepo {
     SqlParameterSource parameters = new MapSqlParameterSource()
         .addValue("id", id);
 
-    return jdbcTemplate.queryForObject(TASK_BY_ID,parameters,new TaskRepoImpl.TaskMapper());
+    return jdbcTemplate.queryForObject(TASK_BY_ID,parameters,new TaskRepoJDBC.TaskMapper());
   }
 
   @Override
@@ -49,7 +48,6 @@ public class TaskRepoImpl implements TaskRepo {
 
     SqlParameterSource parameters = new MapSqlParameterSource()
         .addValue("id", task.getId())
-        .addValue("owner_id", task.getUserId())
         .addValue("description", task.getDescription())
         .addValue("status", task.getStatus());
 
@@ -84,7 +82,6 @@ public class TaskRepoImpl implements TaskRepo {
 
       Task task = new Task();
       task.setId(resultSet.getLong("id"));
-      task.setUserId(resultSet.getLong("owner_id"));
       task.setDescription(resultSet.getString("description"));
       task.setStatus(resultSet.getString("status"));
 
