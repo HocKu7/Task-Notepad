@@ -9,6 +9,4 @@ public interface AuthorisationService {
   UserDto signIn(UserDto user);
 
   UserDto signUp(UserDto user);
-
-  List<UserDto>  getAllUser();
 }
