@@ -6,10 +6,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import ru.crud.component.user.dto.UserDto;
 import ru.crud.domain.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserRepoJDBCTemplate implements UserRepo {
 
@@ -34,12 +36,10 @@ public class UserRepoJDBCTemplate implements UserRepo {
   }
 
   @Override
-  public User getUserByName(String name) {
+  public List<User> getUsersByName(String name) {
 
-    SqlParameterSource parameters = new MapSqlParameterSource()
-        .addValue("name", name);
-
-    return jdbcTemplate.queryForObject(SELECT_USER_BY_NAME, parameters, new UserMapper());
+    //TODO
+    return null;
   }
 
   @Override
@@ -80,6 +80,11 @@ public class UserRepoJDBCTemplate implements UserRepo {
         .addValue("id", id);
 
     jdbcTemplate.update(DELETE_USER_BY_ID, parameters);
+  }
+
+  @Override
+  public List<User> getAllUsers() {
+    return null;
   }
 
   private static final class UserMapper implements RowMapper<User> {

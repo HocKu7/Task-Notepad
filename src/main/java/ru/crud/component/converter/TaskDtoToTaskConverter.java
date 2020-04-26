@@ -1,6 +1,7 @@
 package ru.crud.component.converter;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.core.convert.converter.Converter;
 import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 
