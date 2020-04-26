@@ -23,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "USER", uniqueConstraints = {
+@Table(name = "PERSON", uniqueConstraints = {
     @UniqueConstraint(columnNames = "ID")
 })
 public class User implements Serializable {
@@ -39,6 +39,6 @@ public class User implements Serializable {
   @Column(name = "PASSWORD")
   private String password;
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  private List<Task> tasks;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+   private List<Task> tasks;
 }

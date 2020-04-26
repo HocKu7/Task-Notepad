@@ -6,6 +6,9 @@ import ru.crud.domain.User;
 import ru.crud.component.user.dto.UserDto;
 import ru.crud.component.user.repo.UserRepo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AuthorisationServiceImpl implements AuthorisationService {
 
@@ -39,5 +42,16 @@ public class AuthorisationServiceImpl implements AuthorisationService {
     modelMapper.map(userDto, user);
     userRepo.save(user);
     return userDto;
+  }
+
+  @Override
+  public List<UserDto> getAllUser() {
+    List<UserDto> usersDto = new ArrayList<>();
+    List<User> users = userRepo.getAllUsers();
+
+    for(User user:users){
+      usersDto.add(modelMapper.map(user,UserDto.class));
+    }
+    return usersDto;
   }
 }

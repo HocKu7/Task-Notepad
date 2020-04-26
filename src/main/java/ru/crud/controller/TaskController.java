@@ -22,7 +22,7 @@ public class TaskController {
   private final TaskService taskService;
 
   @GetMapping("/{id}/tasks")
-  public List<Task> getAllTasksByUserId(@PathVariable Long id){
+  public List<TaskDto> getAllTasksByUserId(@PathVariable Long id){
     return taskService.getTasksByUserId(id);
   }
 

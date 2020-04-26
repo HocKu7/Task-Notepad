@@ -38,6 +38,6 @@ public class Task implements Serializable {
   private String status;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "OWNER_ID", nullable = false)
+  @JoinColumn(name = "OWNER_ID")
   private User user;
 }

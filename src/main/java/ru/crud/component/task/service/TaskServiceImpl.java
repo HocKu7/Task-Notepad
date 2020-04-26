@@ -2,6 +2,8 @@ package ru.crud.component.task.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import ru.crud.component.converter.TaskDtoToTaskConverter;
 import ru.crud.component.converter.TaskToTaskDtoConverter;
@@ -9,8 +11,10 @@ import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 import ru.crud.component.task.repo.TaskRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,10 +22,16 @@ import java.util.Random;
 public class TaskServiceImpl implements TaskService {
 
   private TaskRepo taskRepo;
+  private ConversionService conversionService;
 
   @Override
-  public List<Task> getTasksByUserId(Long id) {
-    return taskRepo.getTasksByUserId(id);
+  public List<TaskDto> getTasksByUserId(Long id) {
+
+    List<Task> tasksByUserId = taskRepo.getTasksByUserId(id);
+
+    return tasksByUserId.stream()
+        .map(task -> conversionService.convert(task,TaskDto.class))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -48,7 +58,7 @@ public class TaskServiceImpl implements TaskService {
   @Override
   public void delete(Long id) {
 
-      taskRepo.delete(id);
+    taskRepo.delete(id);
   }
 
   @Override
