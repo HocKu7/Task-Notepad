@@ -27,15 +27,14 @@ public class TaskController {
   }
 
   @PostMapping("/tasks")
-  public TaskDto createTask(@RequestBody TaskDto taskDto){
-
-    return taskService.save(taskDto);
+  @ResponseStatus(HttpStatus.CREATED)
+  public void createTask(@RequestBody TaskDto taskDto){
+    taskService.save(taskDto);
   }
 
   @DeleteMapping("/tasks/{id}")
-  @ResponseStatus(code= HttpStatus.NO_CONTENT)
+  @ResponseStatus(code= HttpStatus.OK)
   public void deleteTask(@PathVariable Long id){
-
     taskService.delete(id);
   }
 }

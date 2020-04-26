@@ -11,9 +11,9 @@ public interface TaskService {
 
   Task getTaskById(Long id);
 
-  TaskDto save(TaskDto task);
+  void save(TaskDto task);
 
   void delete(Long id);
 
-  TaskDto update(TaskDto task);
+  void update(TaskDto task);
 }
