@@ -43,16 +43,15 @@ public class TaskServiceImpl implements TaskService {
   @Override
   public TaskDto save(TaskDto taskDto) {
 
-    TaskDtoToTaskConverter taskDtoToTaskConverter = new TaskDtoToTaskConverter();
-    Task task = taskDtoToTaskConverter.convert(taskDto);
+
+    Task task = conversionService.convert(taskDto, Task.class);
     task.setId(new Random().nextLong() % 200);
 
     Task returningTask = taskRepo.save(task);
 
     log.info("Created task with id: " + returningTask.getId());
-    TaskToTaskDtoConverter taskToTaskDtoConverter = new TaskToTaskDtoConverter();
 
-    return taskToTaskDtoConverter.convert(returningTask);
+    return conversionService.convert(returningTask,TaskDto.class);
   }
 
   @Override

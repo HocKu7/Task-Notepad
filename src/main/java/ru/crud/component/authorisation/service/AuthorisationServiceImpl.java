@@ -44,14 +44,5 @@ public class AuthorisationServiceImpl implements AuthorisationService {
     return userDto;
   }
 
-  @Override
-  public List<UserDto> getAllUser() {
-    List<UserDto> usersDto = new ArrayList<>();
-    List<User> users = userRepo.getAllUsers();
 
-    for(User user:users){
-      usersDto.add(modelMapper.map(user,UserDto.class));
-    }
-    return usersDto;
-  }
 }
