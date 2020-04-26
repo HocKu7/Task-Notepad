@@ -1,15 +1,12 @@
 package ru.crud.component.authorisation.service;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.crud.domain.User;
 import ru.crud.component.user.dto.UserDto;
 import ru.crud.component.user.repo.UserRepo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Component
+@Service
 public class AuthorisationServiceImpl implements AuthorisationService {
 
   private UserRepo userRepo;

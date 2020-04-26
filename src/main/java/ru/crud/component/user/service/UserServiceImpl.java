@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.crud.component.user.dto.UserDto;
 import ru.crud.domain.User;
 import ru.crud.component.user.repo.UserRepo;
+import ru.crud.exception.InternalServerError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User save(User user) {
+  public void save(User user) {
 
-    return userRepo.save(user);
+    userRepo.save(user);
   }
 
   @Override
@@ -37,13 +38,14 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User update(User user) {
-    return userRepo.update(user);
+  public void update(User user) {
+    userRepo.update(user);
   }
 
   @Override
   public void deleteById(long id) {
-    userRepo.deleteById(id);
+
+      userRepo.deleteById(id);
   }
 
   @Override
