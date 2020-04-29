@@ -11,9 +11,9 @@ public interface UserRepo {
 
   List<User> getUsersByName(String name);
 
-  User save(User user);
+  void save(User user);
 
-  User update(User user);
+  void update(User user);
 
   void deleteById(long id);
 

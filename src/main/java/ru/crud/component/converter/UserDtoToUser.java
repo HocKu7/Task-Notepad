@@ -1,7 +1,6 @@
 package ru.crud.component.converter;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import ru.crud.component.user.dto.UserDto;
 import ru.crud.domain.User;

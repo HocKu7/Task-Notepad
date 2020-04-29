@@ -9,7 +9,7 @@ public interface TaskService {
 
   List<TaskDto> getTasksByUserId(Long id);
 
-  Task getTaskById(Long id);
+  TaskDto getTaskById(Long id);
 
   void save(TaskDto task);
 

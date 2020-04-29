@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.crud.component.user.dto.UserDto;
 import ru.crud.domain.User;
 import ru.crud.component.user.repo.UserRepo;
-import ru.crud.exception.InternalServerError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +26,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void save(User user) {
+  public void save(UserDto userDto) {
 
+    User user = conversionService.convert(userDto, User.class);
     userRepo.save(user);
   }
 
@@ -38,8 +38,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void update(User user) {
-    userRepo.update(user);
+  public void update(UserDto user) {
+
+    //TODO
+    //userRepo.update(user);
   }
 
   @Override

@@ -29,8 +29,8 @@ public class UserController {
 
   @PutMapping("/user")
   @ResponseStatus(HttpStatus.OK)
-  public void updateUser(@RequestBody User user) {
-    userService.update(user);
+  public void updateUser(@RequestBody UserDto userDto) {
+    userService.update(userDto);
   }
 
   @GetMapping("/user/all")

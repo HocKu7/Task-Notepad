@@ -19,15 +19,7 @@ public class AuthorisationServiceImpl implements AuthorisationService {
   @Override
   public UserDto signIn(UserDto userDto) {
 
-//    User actualUser = User.builder()
-//        .build();
-//    modelMapper.map(userDto, actualUser);
-//    User expectedUser = userRepo.getUserByName(userDto.getName());
-//    if (expectedUser.getName()
-//        .equals(actualUser.getName()) && expectedUser.getPassword()
-//        .equals(actualUser.getPassword())) {
-//      return userDto;
-//    }
+    //TODO
     return null;
   }
 

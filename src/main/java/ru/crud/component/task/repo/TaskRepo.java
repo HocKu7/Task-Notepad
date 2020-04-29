@@ -10,9 +10,9 @@ public interface TaskRepo {
 
   Task getTaskById(Long id);
 
-  Task save(Task task);
+  void save(Task task);
 
   void delete(Long id);
 
-  Task update(Task task);
+  void update(Task task);
 }

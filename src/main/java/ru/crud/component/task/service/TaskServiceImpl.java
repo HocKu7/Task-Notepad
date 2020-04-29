@@ -30,9 +30,11 @@ public class TaskServiceImpl implements TaskService {
   }
 
   @Override
-  public Task getTaskById(Long id) {
+  public TaskDto getTaskById(Long id) {
 
-    return taskRepo.getTaskById(id);
+    Task task = taskRepo.getTaskById(id);
+
+    return conversionService.convert(task, TaskDto.class);
   }
 
   @Override

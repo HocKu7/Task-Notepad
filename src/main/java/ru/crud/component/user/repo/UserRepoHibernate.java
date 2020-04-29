@@ -1,16 +1,17 @@
 package ru.crud.component.user.repo;
 
-import org.hibernate.Query;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import ru.crud.domain.Task;
+import org.springframework.transaction.annotation.Transactional;
 import ru.crud.domain.User;
 
 import java.util.List;
 
 @Repository
+@Slf4j
+@Transactional
 public class UserRepoHibernate implements UserRepo {
 
   private SessionFactory sessionFactory;
@@ -22,65 +23,56 @@ public class UserRepoHibernate implements UserRepo {
   @Override
   public User getById(long id) {
 
-    return sessionFactory.openSession()
-        .byId(User.class)
-        .getReference(id);
+    Session session = sessionFactory.getCurrentSession();
+    User user = session.load(User.class, id);
+    log.info("Get user by id: " + user);
+
+    return user;
   }
 
   @Override
   public List<User> getUsersByName(String name) {
 
-    Session session = sessionFactory.openSession();
+    Session session = sessionFactory.getCurrentSession();
     List list = session.createQuery("FROM User WHERE name= :name")
+        .setParameter("name", name)
         .list();
-    session.close();
+    log.info("Get users by name. Count users: " + list.size());
     return list;
   }
 
   @Override
-  public User save(User user) {
+  public void save(User user) {
 
-    Session session = sessionFactory.openSession();
+    Session session = sessionFactory.getCurrentSession();
     session.save(user);
-    session.flush();
-    session.close();
-
-    return null;
+    log.info("User saved: " + user);
   }
 
   @Override
-  public User update(User user) {
+  public void update(User user) {
 
-    Session session = sessionFactory.openSession();
+    Session session = sessionFactory.getCurrentSession();
     session.update(user);
-    session.flush();
-    session.close();
-    return null;
+    log.info("User updated: " + user);
   }
 
   @Override
   public void deleteById(long id) {
 
-    try(Session session = sessionFactory.openSession()){
-
-      Transaction transaction = session.beginTransaction();
-
-      User user = session.byId(User.class)
-          .getReference(id);
-      session.delete(user);
-
-      transaction.commit();
-    }
+    Session session = sessionFactory.getCurrentSession();
+    User user = session.load(User.class, id);
+    session.delete(user);
+    log.info("User deleted: " + user);
   }
 
   @Override
   public List<User> getAllUsers() {
 
-    Session session = sessionFactory.openSession();
+    Session session = sessionFactory.getCurrentSession();
     List list = session.createQuery("FROM User")
         .list();
-
-    session.close();
+    log.info("Get all users. Count:" + list.size());
 
     return list;
   }
