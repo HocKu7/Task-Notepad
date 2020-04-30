@@ -2,15 +2,14 @@ package ru.crud.component.task.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import ru.crud.component.converter.TaskDtoToTaskConverter;
-import ru.crud.component.converter.TaskToTaskDtoConverter;
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 import ru.crud.component.task.repo.TaskRepo;
 
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,41 +17,43 @@ import java.util.Random;
 public class TaskServiceImpl implements TaskService {
 
   private TaskRepo taskRepo;
+  private ConversionService conversionService;
 
   @Override
-  public List<Task> getTasksByUserId(Long id) {
-    return taskRepo.getTasksByUserId(id);
+  public List<TaskDto> getTasksByUserId(Long id) {
+
+    List<Task> tasksByUserId = taskRepo.getTasksByUserId(id);
+
+    return tasksByUserId.stream()
+        .map(task -> conversionService.convert(task,TaskDto.class))
+        .collect(Collectors.toList());
   }
 
   @Override
-  public Task getTaskById(Long id) {
+  public TaskDto getTaskById(Long id) {
 
-    return taskRepo.getTaskById(id);
+    Task task = taskRepo.getTaskById(id);
+
+    return conversionService.convert(task, TaskDto.class);
   }
 
   @Override
-  public TaskDto save(TaskDto taskDto) {
+  public void save(TaskDto taskDto) {
 
-    TaskDtoToTaskConverter taskDtoToTaskConverter = new TaskDtoToTaskConverter();
-    Task task = taskDtoToTaskConverter.convert(taskDto);
-    task.setId(new Random().nextLong() % 200);
-
-    Task returningTask = taskRepo.save(task);
-
-    log.info("Created task with id: " + returningTask.getId());
-    TaskToTaskDtoConverter taskToTaskDtoConverter = new TaskToTaskDtoConverter();
-
-    return taskToTaskDtoConverter.convert(returningTask);
+    Task task = conversionService.convert(taskDto, Task.class);
+    taskRepo.save(task);
   }
 
   @Override
   public void delete(Long id) {
 
-      taskRepo.delete(id);
+    taskRepo.delete(id);
   }
 
   @Override
-  public TaskDto update(TaskDto task) {
-    return null;
+  public void update(TaskDto taskDto) {
+
+    Task task = conversionService.convert(taskDto, Task.class);
+    taskRepo.update(task);
   }
 }

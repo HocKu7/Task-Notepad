@@ -1,16 +1,21 @@
 package ru.crud.component.user.repo;
 
-import ru.crud.component.user.domain.User;
+import ru.crud.component.user.dto.UserDto;
+import ru.crud.domain.User;
+
+import java.util.List;
 
 public interface UserRepo {
 
   User getById(long id);
 
-  User getUserByName(String name);
+  List<User> getUsersByName(String name);
 
-  User save(User user);
+  void save(User user);
 
-  User update(User user);
+  void update(User user);
 
   void deleteById(long id);
+
+  List<User> getAllUsers();
 }

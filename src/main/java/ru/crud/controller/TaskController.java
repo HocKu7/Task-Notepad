@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.crud.component.task.domain.Task;
+import ru.crud.domain.Task;
 import ru.crud.component.task.dto.TaskDto;
 import ru.crud.component.task.service.TaskService;
 
@@ -22,20 +22,19 @@ public class TaskController {
   private final TaskService taskService;
 
   @GetMapping("/{id}/tasks")
-  public List<Task> getAllTasksByUserId(@PathVariable Long id){
+  public List<TaskDto> getAllTasksByUserId(@PathVariable Long id){
     return taskService.getTasksByUserId(id);
   }
 
   @PostMapping("/tasks")
-  public TaskDto createTask(@RequestBody TaskDto taskDto){
-
-    return taskService.save(taskDto);
+  @ResponseStatus(HttpStatus.CREATED)
+  public void createTask(@RequestBody TaskDto taskDto){
+    taskService.save(taskDto);
   }
 
   @DeleteMapping("/tasks/{id}")
-  @ResponseStatus(code= HttpStatus.NO_CONTENT)
+  @ResponseStatus(code= HttpStatus.OK)
   public void deleteTask(@PathVariable Long id){
-
     taskService.delete(id);
   }
 }

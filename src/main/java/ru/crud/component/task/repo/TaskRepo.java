@@ -1,7 +1,6 @@
 package ru.crud.component.task.repo;
 
-import ru.crud.component.task.domain.Task;
-import ru.crud.component.task.dto.TaskDto;
+import ru.crud.domain.Task;
 
 import java.util.List;
 
@@ -11,9 +10,9 @@ public interface TaskRepo {
 
   Task getTaskById(Long id);
 
-  Task save(Task task);
+  void save(Task task);
 
   void delete(Long id);
 
-  Task update(Task task);
+  void update(Task task);
 }
